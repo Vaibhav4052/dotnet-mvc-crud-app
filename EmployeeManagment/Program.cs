@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using EmployeeManagment.Models; 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("IacsddbContext") ?? throw new InvalidOperationException("Connection string 'IacsddbContext' not found.");
+
+builder.Services.AddDbContext<IacsddbContext>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -22,7 +27,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Emps}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
